@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -52,8 +51,7 @@
     transition: background 0.4s, padding 0.4s;
   }
   nav.scrolled {
-    background: rgba(5,10,30,0.92);
-    backdrop-filter: blur(18px);
+    background: rgba(5,10,30,0.96);
     padding: 16px 60px;
     border-bottom: 1px solid var(--divider);
   }
@@ -321,7 +319,6 @@
     max-width: 380px;
     line-height: 1.75;
   }
-  .stat-item {}
   .stat-number {
     font-family: var(--font-display);
     font-size: clamp(52px, 6vw, 80px);
@@ -618,7 +615,7 @@
     color: var(--navy);
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
     .plan-features-list { grid-template-columns: 1fr; }
     .plan-cards { grid-template-columns: 1fr; }
     .plan-tabs { flex-direction: column; width: 100%; }
@@ -649,7 +646,6 @@
     margin-bottom: 40px;
   }
   .speed-bars { display: flex; flex-direction: column; gap: 36px; }
-  .speed-bar-item {}
   .speed-bar-meta {
     display: flex;
     justify-content: space-between;
@@ -966,7 +962,6 @@
   /* ─── PAGE SYSTEM ─────────────────────────────── */
   .page { display: none; }
   .page.active { display: block; }
-  .page#page-home.active { display: block; }
   .nav-links a.active-link { color: var(--cyan); }
 
   /* ─── HOME FOOTER ─────────────────────────────── */
@@ -1035,6 +1030,144 @@
   @media (prefers-reduced-motion: reduce) {
     .cursor, .cursor-ring { display: none; }
   }
+
+  /* ─── MOBILE BOTTOM NAV ───────────────────────── */
+  .mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    top: auto;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(5,10,30,0.96);
+    border-top: 1px solid var(--divider);
+    padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+  }
+  .mobile-bottom-nav-inner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mobile-bottom-nav li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .mobile-bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.25s;
+    padding: 4px 12px;
+  }
+  .mobile-bottom-nav a.active-link {
+    color: var(--cyan);
+  }
+  .mobile-bottom-nav a svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.5;
+    fill: none;
+    stroke: currentColor;
+  }
+
+  /* ─── MOBILE (< 768px) ────────────────────────── */
+  @media (max-width: 767px) {
+    .mobile-bottom-nav { display: block; }
+    body { padding-bottom: 72px; }
+
+    #main-nav { display: none; }
+
+    .hero {
+      padding: 120px 24px 80px;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    .hero-image {
+      left: 50%;
+      transform: translateX(-50%);
+      top: auto;
+      bottom: 0;
+      width: min(90vw, 500px);
+      filter: none;
+    }
+    .hero-headline { max-width: 100%; }
+    .hero-sub { font-size: 16px; max-width: 100%; }
+    .hero-actions { flex-direction: column; gap: 12px; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost { width: 100%; text-align: center; padding: 16px 24px; }
+    .hero-scroll-indicator { display: none; }
+
+    .marquee-item { padding: 0 20px; font-size: 12px; }
+
+    .stats {
+      padding: 80px 24px;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .stats::before { display: none; }
+    .stats-left {
+      padding-right: 0;
+      border-right: none;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--divider);
+    }
+    .stats-right {
+      padding-left: 0;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .features { padding: 0 24px 80px; }
+    .features-headline { margin-bottom: 48px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .feature-card { padding: 32px 24px; }
+    .feature-number { margin-bottom: 24px; }
+    .feature-icon { margin-bottom: 20px; }
+
+    .speed-section { padding: 80px 24px; }
+    .speed-grid { grid-template-columns: 1fr; gap: 48px; }
+
+    .plan-page { padding: 100px 24px 80px; }
+    .plan-tabs { width: 100%; }
+    .plan-tab { padding: 10px 16px; font-size: 12px; }
+
+    .about { padding: 80px 24px; }
+    .about .about-bento { grid-template-columns: 1fr; }
+    .about .bento-card.circle-card { grid-row: auto; }
+    .about .bento-card.wide-card { grid-column: auto; }
+    .about .bento-card.span3 { grid-column: auto; }
+    .about .bento-features { grid-template-columns: 1fr; }
+    .about .bento-feature { padding: 12px; }
+
+    .contact {
+      padding: 80px 24px;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    footer {
+      padding: 32px 24px;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+    .footer-links { gap: 24px; flex-wrap: wrap; justify-content: center; }
+
+    .home-footer { min-height: 300px; height: 50vh; }
+
+    .cursor, .cursor-ring { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -1042,6 +1175,36 @@
 <!-- Custom cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <ul class="mobile-bottom-nav-inner">
+    <li>
+      <a href="#" data-nav="home">
+        <svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="#" data-nav="about">
+        <svg viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        About
+      </a>
+    </li>
+    <li>
+      <a href="#" data-nav="plans">
+        <svg viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        Plans
+      </a>
+    </li>
+    <li>
+      <a href="#" data-nav="contact">
+        <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Contact
+      </a>
+    </li>
+  </ul>
+</nav>
 
 <!-- NAV -->
 <nav id="main-nav">
@@ -1429,7 +1592,7 @@
 </div>
 
 <div class="page" id="page-about">
-  <section class="about" style="background: var(--navy-mid);">
+  <section class="about">
   <div class="section-eyebrow reveal">Welcome</div>
   <h2 class="about-headline reveal">Hi-Konnect Network Limited</h2>
 
@@ -1856,15 +2019,26 @@ function switchPage(pageId) {
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active-link'));
   const activeLink = document.querySelector(`.nav-links a[data-nav="${pageId}"]`);
   if (activeLink) activeLink.classList.add('active-link');
+  document.querySelectorAll('.mobile-bottom-nav a').forEach(a => a.classList.remove('active-link'));
+  const activeBottomLink = document.querySelector(`.mobile-bottom-nav a[data-nav="${pageId}"]`);
+  if (activeBottomLink) activeBottomLink.classList.add('active-link');
   ScrollTrigger.refresh();
 }
 document.querySelectorAll('[data-nav]').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
-    switchPage(el.dataset.nav);
+    const id = el.dataset.nav;
+    window.location.hash = id;
+    switchPage(id);
   });
 });
-switchPage('home');
+function routeFromHash() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash) switchPage(hash);
+}
+window.addEventListener('hashchange', routeFromHash);
+routeFromHash();
+if (!window.location.hash) switchPage('home');
 
 /* ─── PLAN TABS ────────────────────────────── */
 document.querySelectorAll('.plan-tab').forEach(tab => {
